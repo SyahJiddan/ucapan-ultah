@@ -1,137 +1,114 @@
-const defaultName = "Sayangku";
-const defaultMessage = "Semoga hari-harimu selalu dipenuhi tawa, kesehatan, dan semua hal baik yang kamu impikan.";
-const commentsApiUrl = "https://script.google.com/macros/s/AKfycbz77qobUZUcLfdsAL-YFTerNdnN5ewl284RPB58wujHABfbq82zg3WLmdcvfDLSSLt9/exec";
-
-const nameInput = document.querySelector("#nameInput");
-const messageInput = document.querySelector("#messageInput");
-const displayName = document.querySelector("#displayName");
-const greetingText = document.querySelector("#greetingText");
-const celebrateButton = document.querySelector("#celebrateButton");
-const resetButton = document.querySelector("#resetButton");
-const confetti = document.querySelector("#confetti");
-const commentForm = document.querySelector("#commentForm");
-const commentButton = document.querySelector("#commentButton");
-const commentList = document.querySelector("#commentList");
-const commentStatus = document.querySelector("#commentStatus");
-let comments = [];
-
-function refreshGreeting() {
-  displayName.textContent = nameInput.value.trim() || defaultName;
-  greetingText.textContent = messageInput.value.trim() || defaultMessage;
+:root {
+  --ink: #312b4a;
+  --pink: #ff5e92;
+  --pink-dark: #e64075;
+  --cream: #fff9f2;
+  --purple: #7768d9;
 }
 
-function celebrate() {
-  const colors = ["#ff5e92", "#7768d9", "#ffc55e", "#65cbdc", "#91d57f"];
-  confetti.replaceChildren();
+* { box-sizing: border-box; }
 
-  for (let index = 0; index < 110; index += 1) {
-    const piece = document.createElement("span");
-    piece.className = "confetti-piece";
-    piece.style.left = `${Math.random() * 100}vw`;
-    piece.style.backgroundColor = colors[index % colors.length];
-    piece.style.setProperty("--drift", `${Math.random() * 220 - 110}px`);
-    piece.style.setProperty("--duration", `${1.7 + Math.random() * 1.4}s`);
-    piece.style.animationDelay = `${Math.random() * .45}s`;
-    confetti.append(piece);
-  }
-
-  celebrateButton.textContent = "Selamat bertambah usia!";
-  window.setTimeout(() => {
-    confetti.replaceChildren();
-    celebrateButton.textContent = "Rayakan!";
-  }, 3600);
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+  background:
+    radial-gradient(circle at 15% 20%, #ffd8e7 0 4%, transparent 4.2%),
+    radial-gradient(circle at 85% 8%, #d9f5ff 0 5%, transparent 5.2%),
+    linear-gradient(135deg, #fff4f7, #f6f2ff 48%, #effaff);
 }
 
-function makeCommentCard(comment) {
-  const card = document.createElement("article");
-  card.className = "comment-card";
-
-  const header = document.createElement("div");
-  header.className = "comment-card-header";
-  const author = document.createElement("p");
-  author.className = "comment-author";
-  author.textContent = comment.name || "Teman";
-  const time = document.createElement("time");
-  time.className = "comment-time";
-  time.textContent = comment.time || "Baru saja";
-  header.append(author, time);
-
-  const message = document.createElement("p");
-  message.className = "comment-message";
-  message.textContent = comment.message || "";
-  card.append(header, message);
-  return card;
+.page-shell {
+  width: min(100% - 32px, 980px);
+  min-height: 100vh;
+  margin: auto;
+  padding: 48px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(270px, .8fr);
+  gap: 28px;
+  align-items: center;
 }
 
-function renderComments() {
-  commentList.replaceChildren();
-  if (!comments.length) {
-    const empty = document.createElement("p");
-    empty.className = "empty-comments";
-    empty.textContent = "Jadilah yang pertama menulis ucapan!";
-    commentList.append(empty);
-    return;
-  }
-  comments.forEach((comment) => commentList.append(makeCommentCard(comment)));
+.card, .customizer {
+  border: 1px solid rgba(255, 255, 255, .8);
+  box-shadow: 0 18px 55px rgba(79, 56, 122, .16);
+  background: rgba(255, 255, 255, .82);
+  backdrop-filter: blur(10px);
 }
 
-function loadComments() {
-  const callbackName = `birthdayComments${Date.now()}`;
-  const jsonpScript = document.createElement("script");
-  const timeoutId = window.setTimeout(failedToLoad, 7000);
-
-  function cleanup() {
-    window.clearTimeout(timeoutId);
-    jsonpScript.remove();
-    delete window[callbackName];
-  }
-
-  function failedToLoad() {
-    cleanup();
-    commentStatus.textContent = "Ucapan belum dapat dimuat.";
-    renderComments();
-  }
-
-  window[callbackName] = (data) => {
-    cleanup();
-    comments = Array.isArray(data.comments) ? data.comments : [];
-    commentStatus.textContent = comments.length ? `${comments.length} ucapan tersimpan` : "Belum ada ucapan";
-    renderComments();
-  };
-
-  jsonpScript.onerror = failedToLoad;
-  jsonpScript.src = `${commentsApiUrl}?callback=${callbackName}&v=${Date.now()}`;
-  document.body.append(jsonpScript);
+.card {
+  position: relative;
+  overflow: hidden;
+  min-height: 590px;
+  padding: 56px 42px 34px;
+  border-radius: 34px;
+  text-align: center;
 }
 
-nameInput.addEventListener("input", refreshGreeting);
-messageInput.addEventListener("input", refreshGreeting);
-celebrateButton.addEventListener("click", celebrate);
-resetButton.addEventListener("click", () => {
-  commentForm.reset();
-  refreshGreeting();
-});
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--pink-dark);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .78rem;
+}
 
-commentForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const name = nameInput.value.trim();
-  const message = messageInput.value.trim();
-  if (!name || !message) return;
+h1 {
+  margin: 0;
+  font-family: Pacifico, cursive;
+  font-size: clamp(2.25rem, 5vw, 4.3rem);
+  line-height: 1.18;
+  color: #51408e;
+  font-weight: 400;
+}
 
-  commentButton.disabled = true;
-  commentButton.textContent = "Mengirim...";
-  commentForm.submit();
+.name-badge {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  margin: 15px 0 10px;
+  padding: 7px 19px;
+  border-radius: 999px;
+  background: #ffe2ed;
+  color: var(--pink-dark);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
 
-  comments.unshift({ name, message, time: "Baru saja" });
-  renderComments();
-  commentStatus.textContent = "Komentar berhasil dikirim.";
-  messageInput.value = "";
-  refreshGreeting();
+.cake { position: relative; width: 225px; height: 190px; margin: 7px auto 3px; }
+.plate { position: absolute; bottom: 14px; left: 18px; width: 190px; height: 17px; border-radius: 50%; background: #b9b2e8; }
+.cake-body { position: absolute; bottom: 28px; left: 39px; width: 147px; height: 76px; overflow: hidden; border-radius: 10px 10px 20px 20px; background: #ffc55e; box-shadow: inset 0 -12px #efa84c; }
+.cake-body span { position: absolute; top: 19px; width: 12px; height: 12px; border-radius: 50%; background: #ff759b; }
+.cake-body span:nth-child(1) { left: 26px; }.cake-body span:nth-child(2) { left: 68px; background: #806cdd; }.cake-body span:nth-child(3) { left: 112px; }
+.icing { position: absolute; z-index: 1; bottom: 88px; left: 39px; width: 147px; height: 29px; border-radius: 15px 15px 9px 9px; background: #fff1f4; }
+.icing::after { content: ""; position: absolute; left: 16px; top: 15px; width: 13px; height: 22px; border-radius: 0 0 10px 10px; background: #fff1f4; box-shadow: 43px 4px #fff1f4, 85px 0 #fff1f4; }
+.candles { position: absolute; z-index: 0; bottom: 114px; left: 72px; display: flex; gap: 24px; }
+.candles i { display: block; width: 10px; height: 37px; border-radius: 4px; background: repeating-linear-gradient(45deg, #83d9e8 0 4px, #fff 4px 8px); }
+.candles i:nth-child(2) { background: repeating-linear-gradient(45deg, #ff789b 0 4px, #fff 4px 8px); }.candles i:nth-child(3) { background: repeating-linear-gradient(45deg, #927de8 0 4px, #fff 4px 8px); }
+.flames { position: absolute; z-index: 2; bottom: 148px; left: 73px; display: flex; gap: 23px; }.flames i { width: 9px; height: 17px; border-radius: 70% 20% 70% 30%; background: #ff9c36; transform: rotate(45deg); animation: flicker .8s infinite alternate; }.flames i:nth-child(2) { animation-delay: .3s; }.flames i:nth-child(3) { animation-delay: .6s; }
 
-  window.setTimeout(() => {
-    commentButton.disabled = false;
-    commentButton.textContent = "Kirim komentar";
-  }, 900);
-});
+.greeting { max-width: 520px; min-height: 76px; margin: 0 auto 18px; font-size: 1.05rem; line-height: 1.65; }
+button { border: 0; cursor: pointer; font: inherit; font-weight: 700; transition: transform .2s, box-shadow .2s, background .2s; }
+button:hover { transform: translateY(-2px); } button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #a9dff1; outline-offset: 3px; }
+#celebrateButton { padding: 13px 28px; border-radius: 999px; color: #fff; background: linear-gradient(100deg, var(--pink), #fa7c5c); box-shadow: 0 8px 17px rgba(255, 94, 146, .3); }
+.hint { margin: 12px 0 0; color: #7c7596; font-size: .84rem; }
 
-loadComments();
+.customizer { padding: 28px; border-radius: 24px; }
+.customizer h2 { margin: 0 0 24px; font-size: 1.36rem; }.customizer label { display: block; margin: 16px 0 7px; font-weight: 700; font-size: .92rem; }
+.customizer-intro { margin: -14px 0 18px; color: #716b87; line-height: 1.45; }
+input, textarea { width: 100%; padding: 11px 12px; border: 1px solid #d8d2e9; border-radius: 11px; color: var(--ink); font: inherit; background: #fff; resize: vertical; }
+input::placeholder, textarea::placeholder { color: #aaa4b9; }.secondary-button { width: 100%; margin-top: 20px; padding: 11px 16px; border-radius: 11px; color: #fff; background: #6357a8; }.secondary-button:disabled { cursor: wait; opacity: .7; transform: none; }.reset-button { width: 100%; margin-top: 9px; padding: 8px; color: #716b87; background: transparent; font-size: .88rem; }
+
+.submit-frame { position: absolute; width: 1px; height: 1px; border: 0; clip-path: inset(50%); overflow: hidden; }
+.comments-section { grid-column: 1 / -1; padding: 30px; border: 1px solid rgba(255, 255, 255, .8); border-radius: 26px; background: rgba(255, 255, 255, .74); box-shadow: 0 18px 55px rgba(79, 56, 122, .12); }
+.comments-heading { display: flex; gap: 20px; align-items: end; justify-content: space-between; margin-bottom: 21px; }.comments-heading .eyebrow { margin-bottom: 5px; }.comments-heading h2 { margin: 0; font-size: 1.45rem; }.comment-status { margin: 0; color: #716b87; font-size: .88rem; text-align: right; }
+.comment-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }.comment-card, .empty-comments { border: 1px solid #e6e0f2; border-radius: 16px; background: #fff; }.comment-card { padding: 17px; }.comment-card-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }.comment-author { margin: 0; color: #564a90; font-weight: 700; overflow-wrap: anywhere; }.comment-time { flex: none; color: #918ba5; font-size: .75rem; }.comment-message { margin: 11px 0 0; line-height: 1.55; overflow-wrap: anywhere; white-space: pre-wrap; }.empty-comments { grid-column: 1 / -1; padding: 22px; margin: 0; color: #716b87; text-align: center; }
+
+.balloon { position: absolute; top: 24px; width: 54px; height: 67px; border-radius: 50% 50% 46% 46%; opacity: .82; }.balloon::after { content: ""; position: absolute; top: 62px; left: 25px; width: 1px; height: 90px; background: currentColor; transform: rotate(7deg); transform-origin: top; }.balloon-left { left: 25px; color: #e95082; background: #ff99b6; transform: rotate(-11deg); }.balloon-right { right: 25px; color: #5f5dbb; background: #aaa2e8; transform: rotate(11deg); }
+
+#confetti { position: fixed; z-index: 10; inset: 0; pointer-events: none; overflow: hidden; }.confetti-piece { position: absolute; top: -24px; width: 10px; height: 17px; animation: fall var(--duration) linear forwards; transform: translateX(0) rotate(0deg); }
+@keyframes fall { to { transform: translate(var(--drift), 110vh) rotate(720deg); } } @keyframes flicker { from { transform: rotate(42deg) scale(.9); } to { transform: rotate(48deg) scale(1.1); } }
+@media (max-width: 720px) { .page-shell { grid-template-columns: 1fr; padding: 22px 0 35px; }.card { min-height: auto; padding: 52px 24px 30px; }.customizer, .comments-section { padding: 24px; }.comments-heading { align-items: start; flex-direction: column; gap: 7px; }.comment-status { text-align: left; }.balloon { top: 18px; transform: scale(.75); }.balloon-left { left: 4px; }.balloon-right { right: 4px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; } }
