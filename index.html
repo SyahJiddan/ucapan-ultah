@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff5e92" />
+    <title>Selamat Ulang Tahun!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Pacifico&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="card" aria-labelledby="birthday-title">
+        <div class="balloon balloon-left" aria-hidden="true"></div>
+        <div class="balloon balloon-right" aria-hidden="true"></div>
+
+        <p class="eyebrow">Hari spesialmu tiba!</p>
+        <h1 id="birthday-title">Selamat Ulang Tahun</h1>
+        <div class="name-badge" id="displayName">Sayangku</div>
+
+        <div class="cake" role="img" aria-label="Kue ulang tahun dengan lilin menyala">
+          <div class="flames"><i></i><i></i><i></i></div>
+          <div class="candles"><i></i><i></i><i></i></div>
+          <div class="icing"></div>
+          <div class="cake-body"><span></span><span></span><span></span></div>
+          <div class="plate"></div>
+        </div>
+
+        <p class="greeting" id="greetingText">
+          Semoga hari-harimu selalu dipenuhi tawa, kesehatan, dan semua hal baik yang kamu impikan.
+        </p>
+
+        <button id="celebrateButton" type="button">Rayakan! ✨</button>
+        <p class="hint">Klik tombol untuk menyalakan pesta.</p>
+      </section>
+
+      <section class="customizer" aria-labelledby="customizer-title">
+        <h2 id="customizer-title">Personalisasikan ucapan</h2>
+        <label for="nameInput">Nama</label>
+        <input id="nameInput" type="text" maxlength="30" placeholder="Contoh: Aisyah" />
+
+        <label for="messageInput">Pesan ucapan</label>
+        <textarea id="messageInput" rows="4" maxlength="220" placeholder="Tulis pesan spesialmu di sini..."></textarea>
+
+        <button class="secondary-button" id="resetButton" type="button">Gunakan pesan awal</button>
+      </section>
+    </main>
+
+    <div id="confetti" aria-hidden="true"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
