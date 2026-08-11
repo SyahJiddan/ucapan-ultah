@@ -1,10 +1,8 @@
-const defaultName = "Sayangku";
 const defaultMessage = "Semoga hari-harimu selalu dipenuhi tawa, kesehatan, dan semua hal baik yang kamu impikan.";
 const commentsApiUrl = "https://script.google.com/macros/s/AKfycbz77qobUZUcLfdsAL-YFTerNdnN5ewl284RPB58wujHABfbq82zg3WLmdcvfDLSSLt9/exec";
 
 const nameInput = document.querySelector("#nameInput");
 const messageInput = document.querySelector("#messageInput");
-const displayName = document.querySelector("#displayName");
 const greetingText = document.querySelector("#greetingText");
 const celebrateButton = document.querySelector("#celebrateButton");
 const resetButton = document.querySelector("#resetButton");
@@ -16,7 +14,6 @@ const commentStatus = document.querySelector("#commentStatus");
 let comments = [];
 
 function refreshGreeting() {
-  displayName.textContent = nameInput.value.trim() || defaultName;
   greetingText.textContent = messageInput.value.trim() || defaultMessage;
 }
 
@@ -104,7 +101,6 @@ function loadComments() {
   document.body.append(jsonpScript);
 }
 
-nameInput.addEventListener("input", refreshGreeting);
 messageInput.addEventListener("input", refreshGreeting);
 celebrateButton.addEventListener("click", celebrate);
 resetButton.addEventListener("click", () => {
