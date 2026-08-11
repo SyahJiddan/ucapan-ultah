@@ -37,14 +37,30 @@
       </section>
 
       <section class="customizer" aria-labelledby="customizer-title">
-        <h2 id="customizer-title">Personalisasikan ucapan</h2>
-        <label for="nameInput">Nama</label>
-        <input id="nameInput" type="text" maxlength="30" placeholder="Contoh: Aisyah" />
+        <h2 id="customizer-title">Kirim ucapan</h2>
+        <p class="customizer-intro">Tulis pesan terbaikmu untuk sang ulang tahun.</p>
+        <form id="commentForm" action="https://script.google.com/macros/s/AKfycbz77qobUZUcLfdsAL-YFTerNdnN5ewl284RPB58wujHABfbq82zg3WLmdcvfDLSSLt9/exec" method="post" target="commentSubmitFrame">
+          <label for="nameInput">Namamu</label>
+          <input id="nameInput" name="name" type="text" maxlength="30" placeholder="Contoh: Aisyah" required />
 
-        <label for="messageInput">Pesan ucapan</label>
-        <textarea id="messageInput" rows="4" maxlength="220" placeholder="Tulis pesan spesialmu di sini..."></textarea>
+          <label for="messageInput">Pesan ucapan</label>
+          <textarea id="messageInput" name="message" rows="4" maxlength="220" placeholder="Tulis pesan spesialmu di sini..." required></textarea>
 
-        <button class="secondary-button" id="resetButton" type="button">Gunakan pesan awal</button>
+          <button class="secondary-button" id="commentButton" type="submit">Kirim komentar</button>
+          <button class="reset-button" id="resetButton" type="button">Kosongkan isian</button>
+        </form>
+        <iframe class="submit-frame" id="commentSubmitFrame" name="commentSubmitFrame" title="Pengiriman komentar"></iframe>
+      </section>
+
+      <section class="comments-section" aria-labelledby="comments-title">
+        <div class="comments-heading">
+          <div>
+            <p class="eyebrow">Buku tamu</p>
+            <h2 id="comments-title">Ucapan dari teman-teman</h2>
+          </div>
+          <p class="comment-status" id="commentStatus" aria-live="polite">Memuat ucapan...</p>
+        </div>
+        <div class="comment-list" id="commentList" aria-live="polite"></div>
       </section>
     </main>
 
