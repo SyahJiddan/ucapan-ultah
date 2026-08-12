@@ -391,17 +391,41 @@ const giftButton = document.querySelector("#giftButton");
 
 if (giftButton) {
   giftButton.addEventListener("click", (event) => {
-    // Mencegah Saweria langsung terbuka
     event.preventDefault();
+
+    // URL Saweria
+    const saweriaUrl = giftButton.href;
+
+    // Buka tab kosong SEGERA saat user melakukan klik.
+    // Ini mencegah popup blocker.
+    const giftWindow = window.open(
+      "about:blank",
+      "_blank"
+    );
+
+    // Jika browser memblokir tab baru
+    if (!giftWindow) {
+      alert(
+        "Tab baru diblokir oleh browser. Silakan izinkan popup untuk website ini."
+      );
+      return;
+    }
+
+    // =========================================
+    // ✨ ANIMASI TOMBOL
+    // =========================================
 
     giftButton.classList.remove("gift-opening");
 
-    // Restart animasi tombol
+    // Memaksa animasi dimulai ulang
     void giftButton.offsetWidth;
 
     giftButton.classList.add("gift-opening");
 
-    // Buat popup
+    // =========================================
+    // 🎁 POPUP
+    // =========================================
+
     const popup = document.createElement("div");
     popup.className = "gift-popup";
 
@@ -421,24 +445,33 @@ if (giftButton) {
     text.className = "gift-popup-text";
     text.textContent = "Menyiapkan halaman hadiah...";
 
-    popup.append(icon, title, japanese, text);
+    popup.append(
+      icon,
+      title,
+      japanese,
+      text
+    );
+
     document.body.appendChild(popup);
 
-    // Tunggu 2 detik
-    window.setTimeout(() => {
-      text.textContent = "Menuju halaman hadiah... ✨";
-    }, 1200);
+    // =========================================
+    // ⏳ PERUBAHAN PESAN
+    // =========================================
 
-    // Setelah 2 detik buka Saweria
     window.setTimeout(() => {
-      window.open(
-        giftButton.href,
-        "_blank",
-        "noopener,noreferrer"
-      );
+      text.textContent =
+        "Menuju halaman hadiah... ✨";
+    }, 1500);
+
+    // =========================================
+    // 🎁 BUKA SAWERIA SETELAH 2,5 DETIK
+    // =========================================
+
+    window.setTimeout(() => {
+      giftWindow.location.href = saweriaUrl;
 
       popup.remove();
       giftButton.classList.remove("gift-opening");
-    }, 2000);
+    }, 2500);
   });
 }
