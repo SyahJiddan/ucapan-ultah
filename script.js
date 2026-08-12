@@ -157,8 +157,6 @@ function celebrate() {
   }, 3600);
 }
 
-  
-}
 
 function makeCommentCard(comment) {
   const card = document.createElement("article");
