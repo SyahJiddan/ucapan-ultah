@@ -391,6 +391,11 @@ const giftButton = document.querySelector("#giftButton");
 
 if (giftButton) {
   giftButton.addEventListener("click", () => {
+    giftButton.classList.remove("gift-opening");
+
+    // Memastikan animasi tombol dapat dimainkan ulang
+    void giftButton.offsetWidth;
+
     giftButton.classList.add("gift-opening");
 
     const popup = document.createElement("div");
@@ -410,14 +415,15 @@ if (giftButton) {
 
     const text = document.createElement("p");
     text.className = "gift-popup-text";
-    text.textContent = "Menuju halaman hadiah...";
+    text.textContent = "Membuka halaman hadiah...";
 
     popup.append(icon, title, japanese, text);
     document.body.appendChild(popup);
 
+    // Popup dibiarkan terlihat lebih lama
     window.setTimeout(() => {
       popup.remove();
       giftButton.classList.remove("gift-opening");
-    }, 1900);
+    }, 3000);
   });
 }
