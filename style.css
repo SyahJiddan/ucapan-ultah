@@ -509,3 +509,68 @@ input::placeholder, textarea::placeholder { color: #8ba1b5; }
     font-size: .82rem;
   }
 }
+/* =========================================
+   🌸 SAKURA FALLING
+   ========================================= */
+
+.sakura-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.sakura-petal {
+  position: absolute;
+  top: -30px;
+  width: 12px;
+  height: 18px;
+
+  background: #f7b8d0;
+  border-radius: 100% 0 100% 0;
+
+  opacity: 0.75;
+
+  animation:
+    sakura-fall linear forwards,
+    sakura-sway ease-in-out infinite alternate;
+
+  filter: drop-shadow(0 2px 3px rgba(116, 54, 84, 0.12));
+}
+
+@keyframes sakura-fall {
+  from {
+    transform: translateY(-30px) rotate(0deg);
+  }
+
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
+@keyframes sakura-sway {
+  from {
+    margin-left: -35px;
+  }
+
+  to {
+    margin-left: 35px;
+  }
+}
+
+/* Saat layar kecil, kelopak dibuat sedikit lebih kecil */
+@media (max-width: 600px) {
+  .sakura-petal {
+    width: 9px;
+    height: 14px;
+  }
+}
+
+/* Mengurangi animasi untuk pengguna yang meminta reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sakura-petal {
+    animation: none;
+    display: none;
+  }
+}
