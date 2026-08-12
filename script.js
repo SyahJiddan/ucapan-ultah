@@ -390,14 +390,18 @@ startSakura();
 const giftButton = document.querySelector("#giftButton");
 
 if (giftButton) {
-  giftButton.addEventListener("click", () => {
+  giftButton.addEventListener("click", (event) => {
+    // Mencegah Saweria langsung terbuka
+    event.preventDefault();
+
     giftButton.classList.remove("gift-opening");
 
-    // Memastikan animasi tombol dapat dimainkan ulang
+    // Restart animasi tombol
     void giftButton.offsetWidth;
 
     giftButton.classList.add("gift-opening");
 
+    // Buat popup
     const popup = document.createElement("div");
     popup.className = "gift-popup";
 
@@ -415,15 +419,26 @@ if (giftButton) {
 
     const text = document.createElement("p");
     text.className = "gift-popup-text";
-    text.textContent = "Membuka halaman hadiah...";
+    text.textContent = "Menyiapkan halaman hadiah...";
 
     popup.append(icon, title, japanese, text);
     document.body.appendChild(popup);
 
-    // Popup dibiarkan terlihat lebih lama
+    // Tunggu 2 detik
     window.setTimeout(() => {
+      text.textContent = "Menuju halaman hadiah... ✨";
+    }, 1200);
+
+    // Setelah 2 detik buka Saweria
+    window.setTimeout(() => {
+      window.open(
+        giftButton.href,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
       popup.remove();
       giftButton.classList.remove("gift-opening");
-    }, 3000);
+    }, 2000);
   });
 }
