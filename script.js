@@ -213,3 +213,53 @@ window.addEventListener("load", () => {
     }
   }, 1500);
 });
+// =========================================
+// 🌸 SAKURA FALLING
+// =========================================
+
+function createSakura() {
+  let container = document.querySelector(".sakura-container");
+
+  if (!container) {
+    container = document.createElement("div");
+    container.className = "sakura-container";
+    container.setAttribute("aria-hidden", "true");
+    document.body.appendChild(container);
+  }
+
+  const petal = document.createElement("span");
+  petal.className = "sakura-petal";
+
+  const size = Math.random() * 8 + 8;
+  const duration = Math.random() * 7 + 8;
+  const swayDuration = Math.random() * 2 + 2;
+  const left = Math.random() * 100;
+  const delay = Math.random() * -10;
+
+  petal.style.left = `${left}%`;
+  petal.style.width = `${size}px`;
+  petal.style.height = `${size * 1.45}px`;
+  petal.style.animationDuration = `${duration}s, ${swayDuration}s`;
+  petal.style.animationDelay = `${delay}s, 0s`;
+  petal.style.opacity = `${Math.random() * 0.35 + 0.45}`;
+
+  container.appendChild(petal);
+
+  setTimeout(() => {
+    petal.remove();
+  }, (duration + 2) * 1000);
+}
+
+function startSakura() {
+  // Membuat 15 kelopak awal
+  for (let i = 0; i < 15; i++) {
+    createSakura();
+  }
+
+  // Menambahkan kelopak secara berkala
+  setInterval(() => {
+    createSakura();
+  }, 700);
+}
+
+startSakura();
