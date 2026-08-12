@@ -3,24 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ff5e92" />
+    <meta name="theme-color" content="#146cbd" />
     <title>Selamat Ulang Tahun!</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Pacifico&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Yusei+Magic&family=Zen+Maru+Gothic:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <main class="page-shell">
       <section class="card" aria-labelledby="birthday-title">
         <div class="balloon balloon-left" aria-hidden="true"></div>
         <div class="balloon balloon-right" aria-hidden="true"></div>
 
+        <span class="card-kana" aria-hidden="true">おめでとう</span>
+
         <p class="eyebrow">Hari spesialmu tiba!</p>
         <h1 id="birthday-title">Selamat Ulang Tahun</h1>
-        <div class="name-badge" id="displayName">Syah Jiddan Akbar</div>
 
-        <div class="cake" role="img" aria-label="Kue ulang tahun dengan lilin menyala">
+        <div class="name-badge" id="displayName">
+          Syah Jiddan Akbar
+        </div>
+
+        <div
+          class="cake"
+          role="img"
+          aria-label="Kue ulang tahun dengan lilin menyala"
+        >
           <div class="flames"><i></i><i></i><i></i></div>
           <div class="candles"><i></i><i></i><i></i></div>
           <div class="icing"></div>
@@ -29,28 +43,74 @@
         </div>
 
         <p class="greeting" id="greetingText">
-          Semoga hari-harimu selalu dipenuhi tawa, kesehatan, dan semua hal baik yang kamu impikan.
+          Semoga hari-harimu selalu dipenuhi tawa, kesehatan, dan semua hal
+          baik yang kamu impikan.
         </p>
 
-        <button id="celebrateButton" type="button">Rayakan! ✨</button>
-        <a class="gift-button" href="https://saweria.co/yuzupepper" target="_blank" rel="noopener noreferrer">Beri Hadiah</a>
+        <button id="celebrateButton" type="button">
+          Rayakan! ✨
+        </button>
+
+        <a
+          class="gift-button"
+          href="https://saweria.co/yuzupepper"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Beri Hadiah
+        </a>
+
         <p class="hint">Klik tombol untuk menyalakan pesta.</p>
       </section>
 
       <section class="customizer" aria-labelledby="customizer-title">
         <h2 id="customizer-title">Kirim ucapan</h2>
-        <p class="customizer-intro">Tulis pesan terbaikmu untuk sang ulang tahun.</p>
-        <form id="commentForm" action="https://script.google.com/macros/s/AKfycbz77qobUZUcLfdsAL-YFTerNdnN5ewl284RPB58wujHABfbq82zg3WLmdcvfDLSSLt9/exec" method="post" target="commentSubmitFrame">
+        <p class="customizer-intro">
+          Tulis pesan terbaikmu untuk sang ulang tahun.
+        </p>
+
+        <form
+          id="commentForm"
+          action="https://script.google.com/macros/s/AKfycbz77qobUZUcLfdsAL-YFTerNdnN5ewl284RPB58wujHABfbq82zg3WLmdcvfDLSSLt9/exec"
+          method="post"
+          target="commentSubmitFrame"
+        >
           <label for="nameInput">Namamu</label>
-          <input id="nameInput" name="name" type="text" maxlength="30" placeholder="Contoh: Messi" required />
+          <input
+            id="nameInput"
+            name="name"
+            type="text"
+            maxlength="30"
+            placeholder="Contoh: Messi"
+            required
+          />
 
           <label for="messageInput">Pesan ucapan</label>
-          <textarea id="messageInput" name="message" rows="4" maxlength="220" placeholder="Tulis pesan spesialmu di sini..." required></textarea>
+          <textarea
+            id="messageInput"
+            name="message"
+            rows="4"
+            maxlength="220"
+            placeholder="Tulis pesan spesialmu di sini..."
+            required
+          ></textarea>
 
-          <button class="secondary-button" id="commentButton" type="submit">Kirim komentar</button>
-          <button class="reset-button" id="resetButton" type="button">Kosongkan isian</button>
+          <button class="secondary-button" id="commentButton" type="submit">
+            Kirim komentar
+          </button>
+
+          <button class="reset-button" id="resetButton" type="button">
+            Kosongkan isian
+          </button>
         </form>
-        <iframe class="submit-frame" id="commentSubmitFrame" name="commentSubmitFrame" title="Pengiriman komentar" hidden></iframe>
+
+        <iframe
+          class="submit-frame"
+          id="commentSubmitFrame"
+          name="commentSubmitFrame"
+          title="Pengiriman komentar"
+          hidden
+        ></iframe>
       </section>
 
       <section class="comments-section" aria-labelledby="comments-title">
@@ -59,13 +119,18 @@
             <p class="eyebrow">Buku tamu</p>
             <h2 id="comments-title">Ucapan dari teman-teman</h2>
           </div>
-          <p class="comment-status" id="commentStatus" aria-live="polite">Memuat ucapan...</p>
+
+          <p class="comment-status" id="commentStatus" aria-live="polite">
+            Memuat ucapan...
+          </p>
         </div>
+
         <div class="comment-list" id="commentList" aria-live="polite"></div>
       </section>
     </main>
 
     <div id="confetti" aria-hidden="true"></div>
+
     <script src="script.js"></script>
   </body>
 </html>
