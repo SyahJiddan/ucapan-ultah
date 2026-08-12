@@ -382,3 +382,50 @@ function startSakura() {
 }
 
 startSakura();
+
+// =========================================
+// 🎁 GIFT / SAWERIA EFFECT
+// =========================================
+
+const giftButton = document.querySelector("#giftButton");
+
+if (giftButton) {
+  giftButton.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const saw eriaUrl = giftButton.href;
+
+    giftButton.classList.add("gift-opening");
+
+    const popup = document.createElement("div");
+    popup.className = "gift-popup";
+
+    const icon = document.createElement("span");
+    icon.className = "gift-popup-icon";
+    icon.textContent = "🎁";
+
+    const title = document.createElement("h3");
+    title.className = "gift-popup-title";
+    title.textContent = "Terima kasih!";
+
+    const japanese = document.createElement("span");
+    japanese.className = "gift-popup-japanese";
+    japanese.textContent = "ありがとう！";
+
+    const text = document.createElement("p");
+    text.className = "gift-popup-text";
+    text.textContent = "Membuka halaman hadiah...";
+
+    popup.append(icon, title, japanese, text);
+    document.body.appendChild(popup);
+
+    window.setTimeout(() => {
+      window.open(saw eriaUrl, "_blank", "noopener,noreferrer");
+    }, 900);
+
+    window.setTimeout(() => {
+      popup.remove();
+      giftButton.classList.remove("gift-opening");
+    }, 1900);
+  });
+}
