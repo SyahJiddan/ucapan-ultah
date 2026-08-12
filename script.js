@@ -18,19 +18,144 @@ function refreshGreeting() {
 }
 
 function celebrate() {
-  const colors = ["#ff5e92", "#7768d9", "#ffc55e", "#65cbdc", "#91d57f"];
+  const colors = [
+    "#ff5e92",
+    "#7768d9",
+    "#ffc55e",
+    "#65cbdc",
+    "#91d57f"
+  ];
+
   confetti.replaceChildren();
+
+  // =========================================
+  // 🎊 CONFETTI
+  // =========================================
 
   for (let index = 0; index < 110; index += 1) {
     const piece = document.createElement("span");
+
     piece.className = "confetti-piece";
     piece.style.left = `${Math.random() * 100}vw`;
     piece.style.backgroundColor = colors[index % colors.length];
-    piece.style.setProperty("--drift", `${Math.random() * 220 - 110}px`);
-    piece.style.setProperty("--duration", `${1.7 + Math.random() * 1.4}s`);
-    piece.style.animationDelay = `${Math.random() * .45}s`;
+    piece.style.setProperty(
+      "--drift",
+      `${Math.random() * 220 - 110}px`
+    );
+    piece.style.setProperty(
+      "--duration",
+      `${1.7 + Math.random() * 1.4}s`
+    );
+    piece.style.animationDelay = `${Math.random() * 0.45}s`;
+
     confetti.append(piece);
   }
+
+  // =========================================
+  // 🎂 EFEK KUE
+  // =========================================
+
+  const cake = document.querySelector(".cake");
+
+  if (cake) {
+    cake.classList.remove("celebrating");
+
+    // Memastikan animasi dapat dimainkan ulang
+    void cake.offsetWidth;
+
+    cake.classList.add("celebrating");
+
+    window.setTimeout(() => {
+      cake.classList.remove("celebrating");
+    }, 1300);
+  }
+
+  // =========================================
+  // 🌸 TAMBAH SAKURA SEMENTARA
+  // =========================================
+
+  if (typeof createSakura === "function") {
+    for (let index = 0; index < 12; index += 1) {
+      window.setTimeout(() => {
+        createSakura();
+      }, index * 100);
+    }
+  }
+
+  // =========================================
+  // ✨ PESAN JEPANG
+  // =========================================
+
+  const oldMessage =
+    document.querySelector(".celebration-message");
+
+  if (oldMessage) {
+    oldMessage.remove();
+  }
+
+  const celebrationMessage =
+    document.createElement("div");
+
+  celebrationMessage.className =
+    "celebration-message";
+
+  const japaneseText =
+    document.createElement("span");
+
+  japaneseText.textContent =
+    "お誕生日おめでとう！";
+
+  const englishText =
+    document.createElement("small");
+
+  englishText.textContent =
+    "Happy Birthday, Jiddan ✨";
+
+  celebrationMessage.append(
+    japaneseText,
+    englishText
+  );
+
+  document.body.appendChild(
+    celebrationMessage
+  );
+
+  window.setTimeout(() => {
+    celebrationMessage.remove();
+  }, 3000);
+
+  // =========================================
+  // ✨ EFEK FLASH
+  // =========================================
+
+  document.body.classList.remove("celebrating");
+
+  void document.body.offsetWidth;
+
+  document.body.classList.add("celebrating");
+
+  window.setTimeout(() => {
+    document.body.classList.remove("celebrating");
+  }, 900);
+
+  // =========================================
+  // 🔘 TOMBOL
+  // =========================================
+
+  celebrateButton.textContent =
+    "Selamat bertambah usia! ✨";
+
+  celebrateButton.disabled = true;
+
+  window.setTimeout(() => {
+    confetti.replaceChildren();
+
+    celebrateButton.textContent =
+      "Rayakan! ✨";
+
+    celebrateButton.disabled = false;
+  }, 3600);
+}
 
   celebrateButton.textContent = "Selamat bertambah usia!";
   window.setTimeout(() => {
