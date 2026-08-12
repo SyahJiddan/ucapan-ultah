@@ -157,11 +157,7 @@ function celebrate() {
   }, 3600);
 }
 
-  celebrateButton.textContent = "Selamat bertambah usia!";
-  window.setTimeout(() => {
-    confetti.replaceChildren();
-    celebrateButton.textContent = "Rayakan!";
-  }, 3600);
+  
 }
 
 function makeCommentCard(comment) {
