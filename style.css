@@ -998,7 +998,7 @@ body.celebrating::after {
 
   pointer-events: none;
 
-  animation: gift-popup-show 3s ease forwards;
+  animation: gift-popup-show 4s ease forwards;
 }
 
 .gift-popup-icon {
