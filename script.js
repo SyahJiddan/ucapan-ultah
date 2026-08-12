@@ -200,3 +200,16 @@ function loadDonationLeaderboard() {
 
 loadDonationLeaderboard();
 setInterval(loadDonationLeaderboard, 30000);
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const leaderboard = document.getElementById("leaderboard-title");
+
+    if (leaderboard) {
+      leaderboard.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
+  }, 1500);
+});
