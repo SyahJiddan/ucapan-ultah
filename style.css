@@ -893,3 +893,196 @@ body.celebrating::after {
     padding: 15px 20px;
   }
 }
+
+/* =========================================
+   🎁 GIFT BUTTON
+   ========================================= */
+
+.gift-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  overflow: hidden;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.gift-button:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.gift-icon {
+  display: inline-block;
+  font-size: 1.1em;
+
+  transition: transform .25s ease;
+}
+
+.gift-button:hover .gift-icon {
+  animation: gift-shake .5s ease;
+}
+
+@keyframes gift-shake {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-12deg);
+  }
+
+  50% {
+    transform: rotate(12deg);
+  }
+
+  75% {
+    transform: rotate(-7deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Efek ketika tombol ditekan */
+
+.gift-button.gift-opening {
+  animation: gift-button-pop .6s ease;
+}
+
+@keyframes gift-button-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Popup hadiah */
+
+.gift-popup {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+
+  z-index: 10001;
+
+  transform: translate(-50%, -50%) scale(.5);
+  opacity: 0;
+
+  width: min(420px, 88vw);
+
+  padding: 28px 24px;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, .96);
+
+  border: 1px solid rgba(255, 255, 255, .9);
+
+  box-shadow:
+    0 20px 60px rgba(20, 108, 189, .25);
+
+  text-align: center;
+
+  pointer-events: none;
+
+  animation: gift-popup-show 1.8s ease forwards;
+}
+
+.gift-popup-icon {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: 3.5rem;
+
+  animation: gift-bounce .7s ease;
+}
+
+.gift-popup-title {
+  margin: 0;
+
+  color: var(--blue-dark);
+
+  font-family:
+    "Yusei Magic",
+    "Zen Maru Gothic",
+    sans-serif;
+
+  font-size: 1.6rem;
+}
+
+.gift-popup-text {
+  margin: 8px 0 0;
+
+  color: #58708a;
+
+  font-size: .9rem;
+}
+
+.gift-popup-japanese {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #146cbd;
+
+  font-family:
+    "Yusei Magic",
+    "Zen Maru Gothic",
+    sans-serif;
+
+  font-size: 1.2rem;
+}
+
+@keyframes gift-popup-show {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.5);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  25% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.95);
+  }
+}
+
+@keyframes gift-bounce {
+  0% {
+    transform: scale(.5) rotate(-15deg);
+  }
+
+  70% {
+    transform: scale(1.15) rotate(5deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
