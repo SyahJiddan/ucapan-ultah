@@ -735,3 +735,161 @@ body.celebrating::after {
     padding: 15px 20px;
   }
 }
+.celebration-message {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 10000;
+
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+
+  pointer-events: none;
+
+  padding: 18px 28px;
+  border-radius: 20px;
+
+  color: #ffffff;
+
+  background: linear-gradient(
+    135deg,
+    rgba(20, 108, 189, 0.95),
+    rgba(80, 150, 210, 0.95)
+  );
+
+  box-shadow:
+    0 15px 45px rgba(20, 108, 189, 0.35),
+    0 0 30px rgba(255, 255, 255, 0.25);
+
+  text-align: center;
+
+  font-family:
+    "Yusei Magic",
+    "Zen Maru Gothic",
+    sans-serif;
+
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+
+  white-space: nowrap;
+
+  animation:
+    celebration-pop 2.8s ease forwards;
+}
+
+.celebration-message span {
+  display: block;
+}
+
+.celebration-message small {
+  display: block;
+  margin-top: 5px;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+
+  opacity: 0.9;
+}
+
+@keyframes celebration-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  25% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+.cake.celebrating {
+  animation: cake-celebrate 1.2s ease-in-out;
+}
+
+@keyframes cake-celebrate {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  25% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+
+  50% {
+    transform: scale(1.12) rotate(2deg);
+  }
+
+  75% {
+    transform: scale(1.08) rotate(-1deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.cake.celebrating .flames i {
+  animation:
+    flame-dance 0.25s ease-in-out infinite alternate;
+}
+
+@keyframes flame-dance {
+  from {
+    transform: scale(1) translateY(0);
+  }
+
+  to {
+    transform: scale(1.3) translateY(-4px);
+  }
+}
+
+body.celebrating::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.22),
+    transparent 55%
+  );
+
+  animation: celebration-flash 0.8s ease-out forwards;
+}
+
+@keyframes celebration-flash {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .celebration-message {
+    width: max-content;
+    max-width: 90vw;
+    white-space: normal;
+    padding: 15px 20px;
+  }
+}
