@@ -133,7 +133,7 @@ commentForm.addEventListener("submit", (event) => {
 loadComments();
 
 const DONATION_LEADERBOARD_API =
-  "https://script.google.com/macros/s/AKfycbyII16Cw_Ao8FifdZTdR1Oi8_tNQSBG94WhE63FJXpS6hTsnaHTUZ9Yjxz9qom525KH/exec";
+  "https://script.google.com/macros/s/AKfycbyxsiFQeBx7chKa3fOm0q7dfK9uP5reLzaU_X-CZlTN7RRkR4BJxFxAt7Lnzjl3xc08/exec";
 
 function renderDonationLeaderboard(payload) {
   const list = document.getElementById("donationLeaderboard");
