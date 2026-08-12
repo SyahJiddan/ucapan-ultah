@@ -384,94 +384,112 @@ function startSakura() {
 startSakura();
 
 // =========================================
-// 🎁 GIFT / SAWERIA EFFECT
+// 🎁 GIFT / SAWERIA
+// Popup muncul setelah kembali dari Saweria
 // =========================================
 
 const giftButton = document.querySelector("#giftButton");
 
 if (giftButton) {
-  giftButton.addEventListener("click", (event) => {
-    event.preventDefault();
+  giftButton.addEventListener("click", () => {
+    // Tandai bahwa user baru saja membuka Saweria
+    sessionStorage.setItem("waitingForGiftReturn", "true");
 
-    // URL Saweria
-    const saweriaUrl = giftButton.href;
-
-    // Buka tab kosong SEGERA saat user melakukan klik.
-    // Ini mencegah popup blocker.
-    const giftWindow = window.open(
-      "about:blank",
-      "_blank"
-    );
-
-    // Jika browser memblokir tab baru
-    if (!giftWindow) {
-      alert(
-        "Tab baru diblokir oleh browser. Silakan izinkan popup untuk website ini."
-      );
-      return;
-    }
-
-    // =========================================
-    // ✨ ANIMASI TOMBOL
-    // =========================================
-
+    // Efek kecil pada tombol
     giftButton.classList.remove("gift-opening");
 
-    // Memaksa animasi dimulai ulang
     void giftButton.offsetWidth;
 
     giftButton.classList.add("gift-opening");
-
-    // =========================================
-    // 🎁 POPUP
-    // =========================================
-
-    const popup = document.createElement("div");
-    popup.className = "gift-popup";
-
-    const icon = document.createElement("span");
-    icon.className = "gift-popup-icon";
-    icon.textContent = "🎁";
-
-    const title = document.createElement("h3");
-    title.className = "gift-popup-title";
-    title.textContent = "Terima kasih!";
-
-    const japanese = document.createElement("span");
-    japanese.className = "gift-popup-japanese";
-    japanese.textContent = "ありがとう！";
-
-    const text = document.createElement("p");
-    text.className = "gift-popup-text";
-    text.textContent = "Menyiapkan halaman hadiah...";
-
-    popup.append(
-      icon,
-      title,
-      japanese,
-      text
-    );
-
-    document.body.appendChild(popup);
-
-    // =========================================
-    // ⏳ PERUBAHAN PESAN
-    // =========================================
-
-    window.setTimeout(() => {
-      text.textContent =
-        "Menuju halaman hadiah... ✨";
-    }, 1500);
-
-    // =========================================
-    // 🎁 BUKA SAWERIA SETELAH 2,5 DETIK
-    // =========================================
-
-    window.setTimeout(() => {
-      giftWindow.location.href = saweriaUrl;
-
-      popup.remove();
-      giftButton.classList.remove("gift-opening");
-    }, 2500);
   });
 }
+
+
+// =========================================
+// 🎁 POPUP SETELAH KEMBALI
+// =========================================
+
+let giftReturnShown = false;
+
+function showGiftReturnPopup() {
+  // Jangan tampilkan lebih dari sekali
+  if (giftReturnShown) return;
+
+  // Cek apakah sebelumnya membuka Saweria
+  const waitingForReturn =
+    sessionStorage.getItem("waitingForGiftReturn");
+
+  if (waitingForReturn !== "true") return;
+
+  giftReturnShown = true;
+
+  // Hapus tanda supaya tidak muncul terus
+  sessionStorage.removeItem("waitingForGiftReturn");
+
+  // Hapus popup lama jika ada
+  const oldPopup =
+    document.querySelector(".gift-popup");
+
+  if (oldPopup) {
+    oldPopup.remove();
+  }
+
+  // =========================================
+  // BUAT POPUP
+  // =========================================
+
+  const popup = document.createElement("div");
+  popup.className = "gift-popup";
+
+  const icon = document.createElement("span");
+  icon.className = "gift-popup-icon";
+  icon.textContent = "🎁";
+
+  const title = document.createElement("h3");
+  title.className = "gift-popup-title";
+  title.textContent = "Terima kasih!";
+
+  const japanese = document.createElement("span");
+  japanese.className = "gift-popup-japanese";
+  japanese.textContent = "ありがとう！";
+
+  const text = document.createElement("p");
+  text.className = "gift-popup-text";
+  text.textContent =
+    "Terima kasih sudah memberikan hadiah ✨";
+
+  popup.append(
+    icon,
+    title,
+    japanese,
+    text
+  );
+
+  document.body.appendChild(popup);
+
+  // Hapus popup setelah 4 detik
+  window.setTimeout(() => {
+    popup.remove();
+  }, 4000);
+}
+
+
+// =========================================
+// CEK SAAT KEMBALI KE WEBSITE
+// =========================================
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if (
+      document.visibilityState === "visible"
+    ) {
+      showGiftReturnPopup();
+    }
+  }
+);
+
+window.addEventListener(
+  "focus",
+  showGiftReturnPopup
+);
