@@ -131,3 +131,72 @@ commentForm.addEventListener("submit", (event) => {
 });
 
 loadComments();
+
+const DONATION_LEADERBOARD_API =
+  "https://script.google.com/macros/s/AKfycbyII16Cw_Ao8FifdZTdR1Oi8_tNQSBG94WhE63FJXpS6hTsnaHTUZ9Yjxz9qom525KH/exec";
+
+function renderDonationLeaderboard(payload) {
+  const list = document.getElementById("donationLeaderboard");
+  const donors = Array.isArray(payload?.items) ? payload.items : [];
+
+  list.replaceChildren();
+
+  if (!donors.length) {
+    const empty = document.createElement("li");
+    empty.className = "leaderboard-empty";
+    empty.textContent = "Belum ada hadiah. Jadilah support pertama! ✨";
+    list.append(empty);
+    return;
+  }
+
+  donors.forEach((donor, index) => {
+    const item = document.createElement("li");
+    item.className = "leaderboard-item";
+
+    const rank = document.createElement("span");
+    rank.className = "leaderboard-rank";
+    rank.textContent = `#${index + 1}`;
+
+    const info = document.createElement("div");
+    info.className = "leaderboard-info";
+
+    const name = document.createElement("strong");
+    name.textContent = donor.name;
+
+    const message = document.createElement("span");
+    message.textContent = donor.message || "Terima kasih atas dukungannya!";
+
+    const amount = document.createElement("b");
+    amount.className = "leaderboard-amount";
+    amount.textContent = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0,
+    }).format(donor.total);
+
+    info.append(name, message);
+    item.append(rank, info, amount);
+    list.append(item);
+  });
+}
+
+function loadDonationLeaderboard() {
+  const oldScript = document.getElementById("donationLeaderboardLoader");
+  if (oldScript) oldScript.remove();
+
+  const script = document.createElement("script");
+  script.id = "donationLeaderboardLoader";
+  script.src =
+    `${DONATION_LEADERBOARD_API}?mode=leaderboard` +
+    `&callback=renderDonationLeaderboard&t=${Date.now()}`;
+
+  script.onerror = () => {
+    const list = document.getElementById("donationLeaderboard");
+    list.textContent = "Leaderboard belum dapat dimuat.";
+  };
+
+  document.head.append(script);
+}
+
+loadDonationLeaderboard();
+setInterval(loadDonationLeaderboard, 30000);
