@@ -390,11 +390,7 @@ startSakura();
 const giftButton = document.querySelector("#giftButton");
 
 if (giftButton) {
-  giftButton.addEventListener("click", (event) => {
-    event.preventDefault();
-
-    const saweriaUrl = giftButton.href;
-
+  giftButton.addEventListener("click", () => {
     giftButton.classList.add("gift-opening");
 
     const popup = document.createElement("div");
@@ -414,14 +410,10 @@ if (giftButton) {
 
     const text = document.createElement("p");
     text.className = "gift-popup-text";
-    text.textContent = "Membuka halaman hadiah...";
+    text.textContent = "Menuju halaman hadiah...";
 
     popup.append(icon, title, japanese, text);
     document.body.appendChild(popup);
-
-    window.setTimeout(() => {
-      window.open(saw eriaUrl, "_blank", "noopener,noreferrer");
-    }, 900);
 
     window.setTimeout(() => {
       popup.remove();
