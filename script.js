@@ -393,7 +393,7 @@ if (giftButton) {
   giftButton.addEventListener("click", (event) => {
     event.preventDefault();
 
-    const saw eriaUrl = giftButton.href;
+    const saweriaUrl = giftButton.href;
 
     giftButton.classList.add("gift-opening");
 
