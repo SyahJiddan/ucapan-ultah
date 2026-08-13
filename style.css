@@ -1086,3 +1086,26 @@ body.celebrating::after {
     transform: scale(1) rotate(0deg);
   }
 }
+.main-mascot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 10px auto 5px;
+
+  pointer-events: none;
+}
+
+.main-mascot img {
+  display: block;
+
+  width: 180px;
+  max-width: 45vw;
+  height: auto;
+
+  object-fit: contain;
+
+  filter: drop-shadow(
+    0 10px 18px rgba(20, 108, 189, 0.15)
+  );
+}
